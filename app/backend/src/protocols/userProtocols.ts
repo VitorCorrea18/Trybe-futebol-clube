@@ -6,6 +6,13 @@ export interface IUser {
   password: string;
 }
 
+export interface IUserWithoutPass {
+  id?: number;
+  username?: string;
+  role?: string;
+  email?: string;
+}
+
 export interface IUserService {
   login(data: object): Promise<object>
 }

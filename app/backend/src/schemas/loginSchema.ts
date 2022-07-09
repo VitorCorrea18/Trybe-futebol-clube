@@ -1,7 +1,7 @@
 import * as Joi from 'joi';
 
 const loginSchema = Joi.object({
-  email: Joi.string().email({ tlds: { allow: false } }), // https://stackoverflow.com/questions/57972358/joi-email-validation
+  email: Joi.string().email({ tlds: { allow: false } }).required(), // https://stackoverflow.com/questions/57972358/joi-email-validation
   password: Joi.string().required(),
 });
 

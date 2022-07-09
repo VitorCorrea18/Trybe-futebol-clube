@@ -7,17 +7,17 @@ class Validation {
   // Joi validations and token decryption
 
   // SCHEMAS
-  login;
+  loginSchema;
 
   constructor() {
-    this.login = loginSchema;
+    this.loginSchema = loginSchema;
   }
 
-  public validateLogin = async (req: Request, res: Response, next: NextFunction) => {
+  public login = async (req: Request, res: Response, next: NextFunction) => {
     const user: IUser = req.body;
-    const { error } = this.login.validate(user);
+    const { error } = this.loginSchema.validate(user);
     if (error) {
-      if (error.message.includes('required')) {
+      if (error.message.includes('required') || error.message.includes('empty')) {
         next({ status: httpStatus.badRequest, message: messages.missingField });
       } else {
         next({ status: httpStatus.badRequest, message: error.message });

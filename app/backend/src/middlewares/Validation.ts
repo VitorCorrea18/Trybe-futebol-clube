@@ -1,21 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
 import { IUser } from '../protocols';
 import { httpStatus, messages } from '../utils';
-import { loginSchema, tokenSchema } from '../schemas';
+import { loginSchema } from '../schemas';
+import { decodeToken } from '../helpers';
 
 class Validation {
   // Joi validations and token decryption
 
   // SCHEMAS
   loginSchema;
-  tokenSchema;
+  decodeToken;
 
   constructor() {
     this.loginSchema = loginSchema;
-    this.tokenSchema = tokenSchema;
+    this.decodeToken = decodeToken;
   }
 
-  public login = async (req: Request, res: Response, next: NextFunction) => {
+  public login = async (req: Request, _res: Response, next: NextFunction) => {
     const user: IUser = req.body;
     const { error } = this.loginSchema.validate(user);
     if (error) {
@@ -30,11 +31,17 @@ class Validation {
 
   public token = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
-    const { error } = this.tokenSchema.validate(token);
-    if (error) {
+    if (typeof token === undefined) {
       next({ status: httpStatus.unauthorized, message: messages.invalidToken });
     }
-    next();
+    if (typeof token === 'string') {
+      try {
+        const { role } = this.decodeToken(token);
+        return res.status(httpStatus.ok).json({ role });
+      } catch (err) {
+        next(err);
+      }
+    }
   };
 }
 

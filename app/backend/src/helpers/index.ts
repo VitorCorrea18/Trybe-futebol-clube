@@ -1,2 +1,2 @@
 export { default as genToken } from './genToken';
-export default {}; // please lint
+export { default as decodeToken } from './decodeToken';

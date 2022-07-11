@@ -10,4 +10,6 @@ router.post('/', validation.login, (req, res, next) => {
   controller.login(req, res, next);
 });
 
+router.get('/validate', validation.token);
+
 export default router;

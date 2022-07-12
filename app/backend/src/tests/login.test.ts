@@ -12,8 +12,13 @@ const { expect } = chai;
 
 // revisão backend 29/06/2022 - Turma 17
 
+const encryptedPw = '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW';
+
+interface IResponseLogin {
+  token: string
+}
+
 describe('Object User', () => {
-  const encryptedPw = '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
 
   beforeEach(() => {
     sinon.stub(User, 'findOne')
@@ -55,3 +60,29 @@ describe('Object User', () => {
     expect(response.body).to.be.eql({ message: 'Incorrect email or password' });
   });
 });
+
+describe('returns user "role" with get /login/validate route', () => {
+  // before(() => {
+  //   sinon.stub(User, 'findOne')
+  //     .resolves({ email:'email@exemple.com', password: encryptedPw } as User)
+  // });
+  // after(() => {
+  //   (User.findOne as sinon.SinonStub)
+  //     .restore();
+  // });
+
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImRhdGFWYWx1ZXMiOnsiaWQiOjEsInVzZXJuYW1lIjoiQWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInBhc3N3b3JkIjoiJDJhJDA4JHhpLkh4azFjekFPMG5aUi4uQjM5M3UxMGFFRDBSUTFOM1BBRVhRN0h4dExqS1BFWkJ1LlBXIn0sIl9wcmV2aW91c0RhdGFWYWx1ZXMiOnsiaWQiOjEsInVzZXJuYW1lIjoiQWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInBhc3N3b3JkIjoiJDJhJDA4JHhpLkh4azFjekFPMG5aUi4uQjM5M3UxMGFFRDBSUTFOM1BBRVhRN0h4dExqS1BFWkJ1LlBXIn0sIl9jaGFuZ2VkIjp7fSwiX29wdGlvbnMiOnsiaXNOZXdSZWNvcmQiOmZhbHNlLCJfc2NoZW1hIjpudWxsLCJfc2NoZW1hRGVsaW1pdGVyIjoiIiwicmF3Ijp0cnVlLCJhdHRyaWJ1dGVzIjpbImlkIiwidXNlcm5hbWUiLCJyb2xlIiwiZW1haWwiLCJwYXNzd29yZCJdfSwiaXNOZXdSZWNvcmQiOmZhbHNlfSwiaWF0IjoxNjU3NTc2MTcyLCJleHAiOjE2NTgxODA5NzJ9.85XVTgImscb9xDUSVpcLBwJlvOqKtUD0069C-itmDdk';
+  
+  it('Returns user role with valid token in headers.authorization', async () => {
+    // const responseLogin = await chai.request(app).post('/login')
+    //   .send({ email:'email@exemple.com', password: 'secret_admin' }); 
+
+    // const { token } = responseLogin.body as IResponseLogin;
+
+    const responseValidate = await chai.request(app).get('/login/validate')
+      .set({ authorization: token });
+
+    expect(responseValidate.status).to.be.equal(200);
+    expect(responseValidate.body).to.be.eql({ "role": "admin" });
+  })
+})

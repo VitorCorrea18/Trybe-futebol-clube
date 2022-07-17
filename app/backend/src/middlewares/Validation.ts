@@ -43,6 +43,14 @@ class Validation {
       }
     }
   };
+
+  public teamId = async (req: Request, _res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    if (!Number(id)) { // test if it can be converted to a number since the params will always be a string
+      next({ status: httpStatus.unprocessable, message: messages.invalidId });
+    }
+    next();
+  };
 }
 
 export default Validation;

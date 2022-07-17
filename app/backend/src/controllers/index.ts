@@ -1,2 +1,2 @@
 export { default as UserController } from './UserController';
-export default {};
+export { default as TeamController } from './TeamController';

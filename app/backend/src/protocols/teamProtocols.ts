@@ -4,9 +4,11 @@ export interface ITeam {
 }
 
 export interface ITeamService {
-  getAll(): Promise<object>
+  getById(id:number): Promise<object>
+  getAll(): Promise<ITeam[]>
 }
 
 export interface ITeamModel {
   findOne(data: number): Promise<ITeam>
+  findAll(): Promise<ITeam[]>
 }

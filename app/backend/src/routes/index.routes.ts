@@ -1,2 +1,2 @@
 export { default as loginRouter } from './login.routes';
-export default {}; // lint
+export { default as teamsRouter } from './teams.routes';

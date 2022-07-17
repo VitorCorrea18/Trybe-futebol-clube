@@ -1,2 +1,2 @@
 export { default as UserRepository } from './UserRepository';
-export default {}; // lint
+export { default as TeamRepository } from './TeamRepository';

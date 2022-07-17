@@ -3,10 +3,7 @@ import db from '.';
 
 class TeamModel extends Model {
   public id: number;
-  public username: string;
-  public role: string;
-  public email: string;
-  public password: string;
+  public teamName: string;
 }
 
 TeamModel.init({
@@ -23,7 +20,7 @@ TeamModel.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'Team',
+  modelName: 'team',
   timestamps: false,
 });
 

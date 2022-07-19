@@ -5,6 +5,7 @@ const messages = {
   invalidToken: 'Invalid Token',
   notFound: 'Not Found',
   invalidId: 'Invalid ID',
+  finished: 'Finished',
 };
 
 export default messages;

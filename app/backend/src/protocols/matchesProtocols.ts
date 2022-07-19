@@ -15,10 +15,15 @@ export interface IMatch {
 
 export interface IMatchService {
   getAll(): Promise<IMatch[]>
+  getInProgress(inProgress: string): Promise<IMatch[]>
+  create(payload:object): Promise<IMatch>
+  updateGoals(id: number, matchGoals: object): Promise<number>
+  finishMatch(id: number): Promise<number>
 }
 
 export interface IMatchModel {
-  findAll(): Promise<IMatch[]>
-  findInProgress(inProgress: boolean): Promise<IMatch[]>
-  findOne(id: number): Promise<IMatch>
+  findAll(data: object): Promise<IMatch[]>
+  findAllInProgress(inProgress:object, data: object): Promise<IMatch[]>
+  create(data: object): Promise<IMatch>
+  update(update: object, data: object): Promise<number>
 }

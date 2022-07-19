@@ -15,7 +15,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        primaryKey: true,
         references: {
           model: 'teams',
           key: 'id'
@@ -32,7 +31,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        primaryKey: true,
         references: {
           model: 'teams',
           key: 'id'
@@ -47,7 +45,6 @@ module.exports = {
         allowNul: false,
         field: 'in_progress',
         type: Sequelize.BOOLEAN,
-        defaultValue: '0'
       }
     });
   },

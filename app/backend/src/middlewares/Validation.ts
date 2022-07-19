@@ -29,7 +29,7 @@ class Validation {
     next();
   };
 
-  public token = async (req: Request, res: Response, next: NextFunction) => {
+  public getRole = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
     if (typeof token === undefined) {
       next({ status: httpStatus.unauthorized, message: messages.invalidToken });
@@ -50,6 +50,27 @@ class Validation {
       next({ status: httpStatus.unprocessable, message: messages.invalidId });
     }
     next();
+  };
+
+  public matchQuery = async (req: Request, _res: Response, next: NextFunction) => {
+    if (req.query.inProgress) {
+      const { inProgress } = req.query;
+      req.body.inProgress = inProgress;
+    }
+    next();
+  };
+
+  public token = async (req: Request, _res: Response, next: NextFunction) => {
+    const token = req.headers.authorization;
+    if (!token) next({ status: httpStatus.unauthorized, message: messages.invalidToken });
+    if (typeof token === 'string') {
+      try {
+        const decode = this.decodeToken(token);
+        if (decode) next();
+      } catch (err) {
+        next({ status: httpStatus.unauthorized, message: messages.invalidToken });
+      }
+    }
   };
 }
 

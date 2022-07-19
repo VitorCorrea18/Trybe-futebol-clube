@@ -10,11 +10,10 @@ export default class MatchesServices implements IMatchService {
   async getAll(): Promise<IMatch[]> {
     const result = await this.model.findAll({
       include: [
-        { model: TeamModel, as: 'homeTeam', attributes: { exclude: ['id'] } },
-        { model: TeamModel, as: 'awayTeam', attributes: { exclude: ['id'] } },
+        { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: TeamModel, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
-    console.log('service matches', result);
     return result as IMatch[];
   }
 
@@ -22,8 +21,8 @@ export default class MatchesServices implements IMatchService {
     const result = await this.model.findAll({
       where: { inProgress },
       include: [
-        { model: TeamModel, as: 'homeTeam', attributes: { exclude: ['id'] } },
-        { model: TeamModel, as: 'awayTeam', attributes: { exclude: ['id'] } },
+        { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: TeamModel, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
     return result as IMatch[];

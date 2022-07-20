@@ -35,7 +35,7 @@ export default class MatchesServices implements IMatchService {
     const homeTeam = await this.teamModel.findOne(payload.homeTeam);
     const awayTeam = await this.teamModel.findOne(payload.awayTeam);
     if (!homeTeam || !awayTeam) {
-      throw new CustomError(httpStatus.badRequest, messages.invalidTeam);
+      throw new CustomError(httpStatus.notFound, messages.invalidTeam);
     }
     if (homeTeam.id === awayTeam.id) {
       throw new CustomError(httpStatus.unauthorized, messages.equalTeams);

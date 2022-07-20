@@ -5,9 +5,8 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Match from '../database/models/MatchModel';
-import { messages } from '../utils'
 import { IMatch } from '../protocols';
-import { before } from 'mocha';
+
 
 chai.use(chaiHttp);
 

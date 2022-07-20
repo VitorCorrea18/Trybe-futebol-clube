@@ -1,10 +1,11 @@
-import { MatchesRepository } from '../repository';
+import { MatchesRepository, TeamRepository } from '../repository';
 import { MatchesServices } from '../services';
 import { MatchesController } from '../controllers';
 
 const MatchesFactory = () => {
-  const repository = new MatchesRepository();
-  const service = new MatchesServices(repository);
+  const teamRepository = new TeamRepository();
+  const Matchrepository = new MatchesRepository();
+  const service = new MatchesServices(Matchrepository, teamRepository);
   const controller = new MatchesController(service);
   return controller;
 };

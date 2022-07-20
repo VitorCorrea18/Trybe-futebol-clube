@@ -14,11 +14,11 @@ router.post('/', validation.token, (req, res, next) => {
   controller.create(req, res, next);
 });
 
-router.put('/:id/finish', (req, res, next) => {
+router.patch('/:id/finish', (req, res, next) => {
   controller.finishMatch(req, res, next);
 });
 
-router.put('/:id', (req, res, next) => {
+router.patch('/:id', (req, res, next) => {
   controller.updateGoals(req, res, next);
 });
 

@@ -37,7 +37,7 @@ export default class MatchesController {
       const payload = req.body;
       const { id } = req.params;
       await this.service.updateGoals(Number(id), payload);
-      return res.status(httpStatus.ok).end();
+      return res.status(httpStatus.ok).json({ message: 'Match updated!' });
     } catch (err) {
       next(err);
     }

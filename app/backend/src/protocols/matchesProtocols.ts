@@ -15,7 +15,7 @@ export interface IMatch {
 
 export interface IMatchService {
   getAll(): Promise<IMatch[]>
-  getInProgress(inProgress: string): Promise<IMatch[]>
+  getByProgress(inProgress: string): Promise<IMatch[]>
   create(payload:object): Promise<IMatch>
   updateGoals(id: number, matchGoals: object): Promise<void>
   finishMatch(id: number): Promise<number>

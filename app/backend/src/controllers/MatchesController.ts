@@ -7,19 +7,15 @@ export default class MatchesController {
     this.service = service;
   }
 
-  async getAll(_req: Request, res: Response, next: NextFunction) {
+  async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await this.service.getAll();
-      return res.status(httpStatus.ok).json(result);
-    } catch (err) {
-      next(err);
-    }
-  }
+      if (req.body.inProgress) { // pass the value inProgress from query to body on validation before the controller
+        const { inProgress } = req.body;
+        const result = await this.service.getByProgress(inProgress);
+        return res.status(httpStatus.ok).json(result);
+      }
 
-  async getInProgress(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { inProgress } = req.params;
-      const result = await this.service.getInProgress(inProgress);
+      const result = await this.service.getAll();
       return res.status(httpStatus.ok).json(result);
     } catch (err) {
       next(err);
@@ -40,8 +36,8 @@ export default class MatchesController {
     try {
       const payload = req.body;
       const { id } = req.params;
-      const result = await this.service.updateGoals(Number(id), payload);
-      return res.status(httpStatus.ok).json(result);
+      await this.service.updateGoals(Number(id), payload);
+      return res.status(httpStatus.ok).end();
     } catch (err) {
       next(err);
     }

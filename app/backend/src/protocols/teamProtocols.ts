@@ -11,4 +11,5 @@ export interface ITeamService {
 export interface ITeamModel {
   findOne(data: number): Promise<ITeam>
   findAll(): Promise<ITeam[]>
+  findAllMatches(data: object): Promise<object>
 }

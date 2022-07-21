@@ -62,7 +62,9 @@ export const getGoalsBalance = (data: IMatchGoals[]): number => {
 
 export const getTotalPoints = (data: IMatchGoals[]): number => {
   const victories = getVictories(data);
-  const total = victories * 3;
+  const draws = getDraws(data);
+  const total = victories * 3 + draws;
+
   return total;
 };
 

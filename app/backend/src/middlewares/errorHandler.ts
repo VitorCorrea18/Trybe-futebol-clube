@@ -7,7 +7,7 @@ const errorHandler = (error: IError, _req: Request, res: Response, _next: NextFu
   if (error.status) {
     return res.status(error.status).json({ message: error.message });
   }
-  return res.status(httpStatus.internalError).json({ message: messages.internalError });
+  return res.status(httpStatus.internalError).json(error.message);
 };
 
 export default errorHandler;
